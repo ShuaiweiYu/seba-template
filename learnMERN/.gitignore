@@ -1,0 +1,6 @@
+node_modules
+node_modules.nosync
+#不要把日志文件加入到git中
+logs
+#不要把环境变量文件加入到git中
+.env
