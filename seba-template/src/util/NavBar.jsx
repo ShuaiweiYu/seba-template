@@ -21,10 +21,13 @@ import LoginModal from "./LoginModal";
 const NavBar = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [open, setOpen] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (state) => {
         setOpen(true);
+        setIsLogin(state);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -67,8 +70,8 @@ const NavBar = () => {
 
             <div className="identity">
                 <ButtonGroup variant="outlined" aria-label="Basic button group">
-                    <Button onClick={handleClickOpen}>Sign up</Button>
-                    <Button>Log in</Button>
+                    <Button onClick={() => handleClickOpen(false)}>Sign up</Button>
+                    <Button onClick={() => handleClickOpen(true)}>Log in</Button>
                 </ButtonGroup>
 
                 <div>
@@ -78,17 +81,16 @@ const NavBar = () => {
                         open={open}
                     >
                         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                            Create an account
+                            {isLogin ? "Log in" : "Sign up"}
                         </DialogTitle>
                         <IconButton
                             aria-label="close"
                             onClick={handleClose}
-                            // sx={{
-                            //     position: 'absolute',
-                            //     right: 8,
-                            //     top: 8,
-                            //     color: (theme) => theme.palette.grey[500],
-                            // }}
+                            sx={{
+                                position: 'absolute',
+                                right: 8,
+                                top: 8,
+                            }}
                         >
                             <CloseIcon />
                         </IconButton>
