@@ -20,14 +20,17 @@ connectDB()
 
 // express.static(...): 这是Express框架提供的一个中间件函数，用于提供静态文件服务。它会将指定目录下的文件发送给客户端，以便客户端可以直接访问这些文件而无需通过路由处理程序。
 // path.join(__dirname, '/public'): 这一部分是为了得到静态文件所在的绝对路径。__dirname是一个Node.js中的全局变量，表示当前执行脚本所在的目录。path.join()方法用于将多个路径拼接成一个路径。在这里，它的作用是将当前执行脚本的目录与'/public'拼接起来，得到静态文件所在的绝对路径。
+// todo:这里不需要在后段实现
 app.use('/', express.static(path.join(__dirname, '/public')))
 
 // require('./routes/root')：这是 Node.js 中的 require 函数，用于导入其他模块。它会加载当前目录下的 'routes' 文件夹中的 'root.js' 文件，并返回该文件导出的对象或函数。
 // './routes/root'：这是要加载的模块的相对路径。在这个例子中，它指定了一个名为 'root.js' 的文件，位于当前执行脚本的 'routes' 文件夹内。
 app.use('/', require('./routes/root.js'))
 
+app.use('/users', require('./routes/userRoutes.js'))
+
 // app.all('*')：这里使用了 Express 应用程序对象的 .all() 方法，它表示匹配所有的 HTTP 方法（GET、POST、PUT、DELETE等）。参数 ' * ' 是一个通配符，表示匹配所有路径。
-// 目前假设我们只返回404代码和错误页面
+// 如果路径不是/，则返回404 todo:这里不需要在后段实现
 app.all('*', (req, res) => {
     // res.status(404)：设置响应状态码为 404，表示请求的资源未找到。
     res.status(404)

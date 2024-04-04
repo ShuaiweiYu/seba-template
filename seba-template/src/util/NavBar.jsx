@@ -15,7 +15,7 @@ import travel from "../Assets/travel.png";
 import darkmode from "../Assets/night-mode.png";
 import lightmode from "../Assets/day-mode.png";
 
-import LoginModal from "./LoginModal";
+import { LoginModal, SignUpModal } from './LoginModal';
 
 
 const NavBar = () => {
@@ -95,7 +95,7 @@ const NavBar = () => {
                             <CloseIcon />
                         </IconButton>
                         <DialogContent dividers>
-                           <LoginModal/>
+                            {isLogin ? <LoginModal/> : <SignUpModal/>}
                         </DialogContent>
                     </BootstrapDialog>
                 </div>
