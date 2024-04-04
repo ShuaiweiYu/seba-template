@@ -8,12 +8,12 @@ import DialogTitle from '@mui/joy/DialogTitle';
 import DialogContent from '@mui/joy/DialogContent';
 import IconButton from '@mui/joy/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 import "./NavBar.css"
 
 import travel from "../Assets/travel.png";
-import darkmode from "../Assets/night-mode.png";
-import lightmode from "../Assets/day-mode.png";
 
 import { LoginModal, SignUpModal } from './LoginModal';
 
@@ -94,7 +94,7 @@ const NavBar = () => {
                         >
                             <CloseIcon />
                         </IconButton>
-                        <DialogContent dividers>
+                        <DialogContent>
                             {isLogin ? <LoginModal/> : <SignUpModal/>}
                         </DialogContent>
                     </BootstrapDialog>
@@ -103,7 +103,7 @@ const NavBar = () => {
 
             <div className="darkmode">
                 <button onClick={toggleDarkMode}>
-                    <img src={isDarkMode ? lightmode : darkmode} className="darkmode-icon" alt="dark mode"/>
+                    {isDarkMode ? <DarkModeIcon/> : <LightModeIcon/>}
                 </button>
             </div>
 

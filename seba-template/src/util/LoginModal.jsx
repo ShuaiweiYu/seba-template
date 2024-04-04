@@ -26,7 +26,6 @@ export const LoginModal = () => {
 
     return (
         <div className="login-container">
-            <Divider/>
             <form
                 onSubmit={(event) => {
                     alert("submitted");
@@ -35,7 +34,6 @@ export const LoginModal = () => {
                 <div className="input-container">
                     <Stack spacing={1}>
                         <TextField id="outlined-basic" label="email" variant="outlined"/>
-                        <TextField id="outlined-basic" label="password" variant="outlined"/>
                         <FormControl variant="outlined">
                             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                             <OutlinedInput
@@ -61,7 +59,9 @@ export const LoginModal = () => {
                 </div>
             </form>
         </div>
-//     todo:表单要做验证 https://muhimasri.com/blogs/mui-validation/
+
+
+        //     todo:表单要做验证 https://muhimasri.com/blogs/mui-validation/
         //     todo:样子改好看一点 -> css style
         //     todo:加上忘记密码 -> 是不是要用另一个页面？
         //     todo:加上OAuth登录选项 -> 要在后端加逻辑
@@ -98,7 +98,6 @@ export const SignUpModal = () => {
                     </Step>
                 ))}
             </Stepper>
-            <Divider/>
             <form
                 onSubmit={(event) => {
                     alert("submitted");

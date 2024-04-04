@@ -71,7 +71,7 @@ h1 {
     align-items: center;
     /*// 如果你也想垂直居中，可以加这一行*/
     margin-left: auto;
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 .darkmode {
@@ -80,11 +80,10 @@ h1 {
         border: none;
         cursor: pointer;
     }
-    .darkmode-icon {
-        height: 24px;
-        width: 24px;
-        display: inline-block;
-        vertical-align: middle;
-        padding: 10px;
+
+    button:hover {
+        scale: 1.1;
+        transition: 0.1s;
     }
+    padding-right: 10px;
 }
