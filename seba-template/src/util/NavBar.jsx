@@ -20,22 +20,21 @@ import { LoginModal, SignUpModal } from './LoginModal';
 
 const NavBar = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const [open, setOpen] = useState(false);
-    const [isLogin, setIsLogin] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [isLoginModal, setIsLoginModal] = useState(false);
 
     const handleClickOpen = (state) => {
-        setOpen(true);
-        setIsLogin(state);
+        setOpenModal(true);
+        setIsLoginModal(state);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenModal(false);
     };
 
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
-        //     todo: 替换掉图标现在这个有点丑
         //     todo: 实现暗黑模式，把一些基础的css放在App.css里面，比如a的颜色装饰等等，这里只要字体大小
     };
 
@@ -70,18 +69,18 @@ const NavBar = () => {
 
             <div className="identity">
                 <ButtonGroup variant="outlined" aria-label="Basic button group">
-                    <Button onClick={() => handleClickOpen(false)}>Sign up</Button>
                     <Button onClick={() => handleClickOpen(true)}>Log in</Button>
+                    <Button onClick={() => handleClickOpen(false)}>Sign up</Button>
                 </ButtonGroup>
 
                 <div>
                     <BootstrapDialog
                         onClose={handleClose}
                         aria-labelledby="customized-dialog-title"
-                        open={open}
+                        open={openModal}
                     >
                         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                            {isLogin ? "Log in" : "Sign up"}
+                            {isLoginModal ? "Log in" : "Sign up"}
                         </DialogTitle>
                         <IconButton
                             aria-label="close"
@@ -95,7 +94,7 @@ const NavBar = () => {
                             <CloseIcon />
                         </IconButton>
                         <DialogContent>
-                            {isLogin ? <LoginModal/> : <SignUpModal/>}
+                            {isLoginModal ? <LoginModal/> : <SignUpModal/>}
                         </DialogContent>
                     </BootstrapDialog>
                 </div>

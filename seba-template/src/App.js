@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Product from "./pages/Product";
 import NoFound from "./pages/NotFound";
+import UserProfile from "./pages/UserProfile";
 
 function App() {
     return (
@@ -13,11 +14,10 @@ function App() {
             <Router>
                 <NavBar/>
                 <Routes>
-                    {/*<Route index exact element={<Home/>}/>*/}
-                    {/*todo: 区别？*/}
-                    <Route path='/' exact element={<Home/>}/>
+                    <Route path='/' element={<Home/>}/>
                     <Route path='/about' element={<About/>}/>
                     <Route path='/product' element={<Product/>}/>
+                    <Route path='/profile' element={<UserProfile/>}/>
                     <Route path='*' element={<NoFound/>}/>
                 </Routes>
             </Router>
