@@ -7,7 +7,10 @@ const bcrypt = require('bcrypt')
 // @access Private
 const getAllUsers = asyncHandler(async (req, res) => {
     // Get all users from MongoDB
-    const users = await User.find().select('-password').lean()
+    // await User.find(): 这一部分是使用Mongoose的find()方法来查询数据库中的用户数据。User是一个Mongoose模型，代表了数据库中的用户集合（collection）。
+    // .select('-hashedPassword'): 通过select()方法，我们告诉Mongoose不要返回用户对象中的hashedPassword字段。
+    // .lean(): 这是Mongoose的一个方法，用于将Mongoose文档转换为普通的JavaScript对象。这样做是为了更好地控制返回的数据。
+    const users = await User.find().select('-hashedPassword').lean()
 
     // If no users
     if (!users?.length) {
@@ -21,24 +24,26 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @route POST /users
 // @access Private
 const createNewUser = asyncHandler(async (req, res) => {
-    const { username, password, roles } = req.body
+    const { username, hashedPassword } = req.body
 
     // Confirm data
-    if (!username || !password || !Array.isArray(roles) || !roles.length) {
+    if (!username || !hashedPassword) {
         return res.status(400).json({ message: 'All fields are required' })
     }
 
     // Check for duplicate username
+    // await User.findOne({ username }): 这一部分是使用Mongoose的findOne()方法来查询数据库中是否存在指定用户名的用户数据。
+    // .exec(): exec()是Mongoose提供的方法，用于执行查询。在这个例子中，它确保查询被执行，并且返回一个Promise以供await使用。
     const duplicate = await User.findOne({ username }).lean().exec()
 
     if (duplicate) {
         return res.status(409).json({ message: 'Duplicate username' })
     }
 
-    // Hash password
-    const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
+    // Hash Password
+    const hashedPwd = await bcrypt.hash(hashedPassword, 10) // salt rounds
 
-    const userObject = { username, "password": hashedPwd, roles }
+    const userObject = { username, "hashedPassword": hashedPwd }
 
     // Create and store new user
     const user = await User.create(userObject)
@@ -54,11 +59,11 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-    const { id, username, roles, active, password } = req.body
+    const { id, username, hashedPassword } = req.body
 
     // Confirm data
-    if (!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
-        return res.status(400).json({ message: 'All fields except password are required' })
+    if (!id || !username) {
+        return res.status(400).json({ message: 'All fields except hashedPassword are required' })
     }
 
     // Does the user exist to update?
@@ -77,12 +82,10 @@ const updateUser = asyncHandler(async (req, res) => {
     }
 
     user.username = username
-    user.roles = roles
-    user.active = active
 
-    if (password) {
-        // Hash password
-        user.password = await bcrypt.hash(password, 10) // salt rounds
+    if (hashedPassword) {
+        // Hash Password
+        user.hashedPassword = await bcrypt.hash(hashedPassword, 10) // salt rounds
     }
 
     const updatedUser = await user.save()

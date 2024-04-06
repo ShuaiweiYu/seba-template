@@ -12,6 +12,12 @@ const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConnection')
 const mongoose = require('mongoose')
 
+app.use(logger)
+app.use(errorHandler)
+app.use(cookieParser())
+app.use(cors(corsOptions))
+app.use(express.json())
+
 console.log(process.env.MONGODB_URL)
 connectDB()
 // app.use('/', ***)
@@ -43,12 +49,6 @@ app.all('*', (req, res) => {
         res.type('txt').send('404 Not Found')
     }
 })
-
-app.use(logger)
-app.use(errorHandler)
-app.use(cookieParser())
-app.use(cors(corsOptions))
-app.use(express.json())
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB')
