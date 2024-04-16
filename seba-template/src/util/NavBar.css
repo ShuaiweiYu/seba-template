@@ -87,3 +87,17 @@ h1 {
     }
     padding-right: 10px;
 }
+
+.profile {
+    button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    button:hover {
+        scale: 1.1;
+        transition: 0.1s;
+    }
+    padding-right: 10px;
+}

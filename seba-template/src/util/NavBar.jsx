@@ -10,18 +10,20 @@ import IconButton from '@mui/joy/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import "./NavBar.css"
 
 import travel from "../Assets/travel.png";
 
-import { LoginModal, SignUpModal } from './LoginModal';
+import {LoginModal, SignUpModal} from './LoginModal';
 
 
 const NavBar = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [isLoginModal, setIsLoginModal] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleClickOpen = (state) => {
         setOpenModal(true);
@@ -68,36 +70,50 @@ const NavBar = () => {
             </div>
 
             <div className="identity">
-                <ButtonGroup variant="outlined" aria-label="Basic button group">
-                    <Button onClick={() => handleClickOpen(true)}>Log in</Button>
-                    <Button onClick={() => handleClickOpen(false)}>Sign up</Button>
-                </ButtonGroup>
 
-                <div>
-                    <BootstrapDialog
-                        onClose={handleClose}
-                        aria-labelledby="customized-dialog-title"
-                        open={openModal}
-                    >
-                        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                            {isLoginModal ? "Log in" : "Sign up"}
-                        </DialogTitle>
-                        <IconButton
-                            aria-label="close"
-                            onClick={handleClose}
-                            sx={{
-                                position: 'absolute',
-                                right: 8,
-                                top: 8,
-                            }}
-                        >
-                            <CloseIcon />
-                        </IconButton>
-                        <DialogContent>
-                            {isLoginModal ? <LoginModal/> : <SignUpModal/>}
-                        </DialogContent>
-                    </BootstrapDialog>
-                </div>
+                {isLoggedIn ? (
+                        <div className="profile">
+                            <button>
+                                <AccountCircleIcon/>
+                            {/*    todo: 登录后调用setsLoggedIn函数 */}
+                            </button>
+                        </div>)
+                    : (
+                        <div>
+                            <ButtonGroup variant="outlined" aria-label="Basic button group">
+                                <Button onClick={() => handleClickOpen(true)}>Log in</Button>
+                                <Button onClick={() => handleClickOpen(false)}>Sign up</Button>
+                            </ButtonGroup>
+
+                            <div>
+                                <BootstrapDialog
+                                    onClose={handleClose}
+                                    aria-labelledby="customized-dialog-title"
+                                    open={openModal}
+                                >
+                                    <DialogTitle sx={{m: 0, p: 2}} id="customized-dialog-title">
+                                        {isLoginModal ? "Log in" : "Sign up"}
+                                    </DialogTitle>
+                                    <IconButton
+                                        aria-label="close"
+                                        onClick={handleClose}
+                                        sx={{
+                                            position: 'absolute',
+                                            right: 8,
+                                            top: 8,
+                                        }}
+                                    >
+                                        <CloseIcon/>
+                                    </IconButton>
+                                    <DialogContent>
+                                        {isLoginModal ? <LoginModal/> : <SignUpModal/>}
+                                    </DialogContent>
+                                </BootstrapDialog>
+                            </div>
+                        </div>
+                    )}
+
+
             </div>
 
             <div className="darkmode">
