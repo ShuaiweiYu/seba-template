@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const usersController = require('../controllers/usersController')
+const verifyJWT = require('../middleware/verifyJWT')
+
+router.use(verifyJWT)
 
 router.route('/')
     // 使用 router.route('/') 定义了针对 / 路径的路由。这意味着该路由将匹配任何发送到根路径的请求。

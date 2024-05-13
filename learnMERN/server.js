@@ -32,7 +32,7 @@ app.use('/', express.static(path.join(__dirname, '/public')))
 // require('./routes/root')：这是 Node.js 中的 require 函数，用于导入其他模块。它会加载当前目录下的 'routes' 文件夹中的 'root.js' 文件，并返回该文件导出的对象或函数。
 // './routes/root'：这是要加载的模块的相对路径。在这个例子中，它指定了一个名为 'root.js' 的文件，位于当前执行脚本的 'routes' 文件夹内。
 app.use('/', require('./routes/root.js'))
-
+app.use('/auth', require('./routes/authRoutes.js'))
 app.use('/users', require('./routes/userRoutes.js'))
 
 // app.all('*')：这里使用了 Express 应用程序对象的 .all() 方法，它表示匹配所有的 HTTP 方法（GET、POST、PUT、DELETE等）。参数 ' * ' 是一个通配符，表示匹配所有路径。

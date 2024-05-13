@@ -14,7 +14,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import "./NavBar.css"
 
-import travel from "../Assets/travel.png";
+import hand from "../Assets/hand.png";
 
 import {LoginModal, SignUpModal} from './LoginModal';
 
@@ -52,11 +52,11 @@ const NavBar = () => {
     return (
         <div className="container">
             <div>
-                <img src={travel} className="logo" alt="icon"/>
+                <img src={hand} className="logo" alt="icon"/>
             </div>
 
             <div className="title">
-                <h1>Seba example page</h1>
+                <h1>find your volunteer</h1>
             </div>
 
             <div className="nav">
